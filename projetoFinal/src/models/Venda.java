@@ -9,5 +9,10 @@ package models;
  * @author fernando.agostini
  */
 public class Venda {
+    private int idVenda;
+    private String data;
+    private double valorTotal;
+    
+    private int idCliente;
     
 }
