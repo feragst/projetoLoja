@@ -8,6 +8,6 @@ package controllers;
  *
  * @author fernando.agostini
  */
-public class ClienteControle {
+public class ProdutoController {
     
 }
