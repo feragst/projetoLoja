@@ -9,10 +9,20 @@ package models;
  * @author fernando.agostini
  */
 public class Cliente {
-    String nome;
-    String cpf;
-    int Telefone;
-      public String getNome() {
+    private int idCliente;
+    private String nome;
+    private String cpf;
+    private int Telefone;
+
+    public int getIdCliente() {
+        return idCliente;
+    }
+
+    public void setIdCliente(int idCliente) {
+        this.idCliente = idCliente;
+    }
+
+    public String getNome() {
         return nome;
     }
 
@@ -35,5 +45,15 @@ public class Cliente {
     public void setTelefone(int Telefone) {
         this.Telefone = Telefone;
     }
+
+    public Cliente(int idCliente, String nome, String cpf, int Telefone) {
+        this.idCliente = idCliente;
+        this.nome = nome;
+        this.cpf = cpf;
+        this.Telefone = Telefone;
+    }
+    
+
+    
     
 }
