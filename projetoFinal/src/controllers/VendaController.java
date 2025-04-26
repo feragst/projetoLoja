@@ -4,10 +4,37 @@
  */
 package controllers;
 
+import java.util.ArrayList;
+import models.Venda;
+
 /**
  *
  * @author fernando.agostini
  */
 public class VendaController {
+     ArrayList<Venda> vetorVenda = new ArrayList();
+
+    public void salvar(Venda v) {
+        vetorVenda.add(v);
+    }
+
+    //    editar(){
+//        
+//    }
+//    
+//    excluir(){
+//        
+//    }
+//    
+//    recuperar(){
+//        
+//    }
+    
+     public void recuperarTodos(){
+        for (int i = 0; i < vetorVenda.size(); i++) {
+            Venda v = vetorVenda.get(i);
+            v.imprimeAtributos();
+        }
+}
     
 }

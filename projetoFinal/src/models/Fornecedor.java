@@ -63,5 +63,14 @@ public class Fornecedor {
         this.endereco = endereco;
     }
     
+    public void imprimeAtributos(){
+        System.out.println(idFornecedor);
+        System.out.println(nome);
+        System.out.println(cnpj);
+        System.out.println(telefone);
+        System.out.println(endereco);
+   
+    }
+    
     
 }

@@ -4,10 +4,38 @@
  */
 package controllers;
 
+import java.util.ArrayList;
+import models.Produto;
+
 /**
  *
  * @author fernando.agostini
  */
 public class ProdutoController {
+    
+     ArrayList<Produto> vetorProduto = new ArrayList();
+
+    public void salvar(Produto p) {
+        vetorProduto.add(p);
+    }
+
+    //    editar(){
+//        
+//    }
+//    
+//    excluir(){
+//        
+//    }
+//    
+//    recuperar(){
+//        
+//    }
+    
+     public void recuperarTodos(){
+        for (int i = 0; i < vetorProduto.size(); i++) {
+            Produto p = vetorProduto.get(i);
+            p.imprimeAtributos();
+        }
+}
     
 }

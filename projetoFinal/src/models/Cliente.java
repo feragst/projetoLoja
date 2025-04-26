@@ -12,7 +12,7 @@ public class Cliente {
     private int idCliente;
     private String nome;
     private String cpf;
-    private int Telefone;
+    private int telefone;
 
     public int getIdCliente() {
         return idCliente;
@@ -39,19 +39,30 @@ public class Cliente {
     }
 
     public int getTelefone() {
-        return Telefone;
+        return telefone;
     }
 
-    public void setTelefone(int Telefone) {
-        this.Telefone = Telefone;
+    public void setTelefone(int telefone) {
+        this.telefone = telefone;
+    }
+    public Cliente() {
     }
 
-    public Cliente(int idCliente, String nome, String cpf, int Telefone) {
+    public Cliente(int idCliente, String nome, String cpf, int telefone) {
         this.idCliente = idCliente;
         this.nome = nome;
         this.cpf = cpf;
-        this.Telefone = Telefone;
+        this.telefone = telefone;
     }
+    public void imprimeAtributos(){
+        System.out.println(idCliente);
+        System.out.println(nome);
+        System.out.println(cpf);
+        System.out.println(telefone);
+   
+    }
+    
+    
     
 
     
