@@ -93,7 +93,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         TelaFornecedor tf = new TelaFornecedor();
-        dskPainel.add(tf);
+        dskPainel.add(tf); 
         tf.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
