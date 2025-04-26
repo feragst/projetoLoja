@@ -37,11 +37,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         dskPainel.setLayout(dskPainelLayout);
         dskPainelLayout.setHorizontalGroup(
             dskPainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 546, Short.MAX_VALUE)
+            .addGap(0, 761, Short.MAX_VALUE)
         );
         dskPainelLayout.setVerticalGroup(
             dskPainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 308, Short.MAX_VALUE)
+            .addGap(0, 478, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Cadastros");
