@@ -12,7 +12,7 @@ public class Cliente {
     private int idCliente;
     private String nome;
     private String cpf;
-    private int telefone;
+    private String telefone;
 
     public int getIdCliente() {
         return idCliente;
@@ -38,17 +38,17 @@ public class Cliente {
         this.cpf = cpf;
     }
 
-    public int getTelefone() {
+    public String getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(int telefone) {
+    public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
     public Cliente() {
     }
 
-    public Cliente(int idCliente, String nome, String cpf, int telefone) {
+    public Cliente(int idCliente, String nome, String cpf, String telefone) {
         this.idCliente = idCliente;
         this.nome = nome;
         this.cpf = cpf;

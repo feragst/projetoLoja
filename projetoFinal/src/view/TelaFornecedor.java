@@ -3,20 +3,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
 package view;
-import controllers.ClienteController;
-import models.Cliente;
+
+import controllers.FornecedorController;
 import javax.swing.JOptionPane;
+import models.Fornecedor;
+
 /**
  *
- * @author fernando.agostini
+ * @author ferag
  */
-public class TelaClientes extends javax.swing.JInternalFrame {
-    ClienteController controlaClientes = new ClienteController();
+public class TelaFornecedor extends javax.swing.JInternalFrame {
+    FornecedorController controlaFornecedor = new FornecedorController();
 
     /**
-     * Creates new form TelaClientes
+     * Creates new form TelaFornecedor
      */
-    public TelaClientes() {
+    public TelaFornecedor() {
         initComponents();
     }
 
@@ -29,15 +31,19 @@ public class TelaClientes extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        txtCnpj = new javax.swing.JTextField();
+        lblEndereco = new javax.swing.JLabel();
+        txtTelefone = new javax.swing.JTextField();
         txtId = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         btnSalvar = new javax.swing.JButton();
         lblNome = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
         lblCpf = new javax.swing.JLabel();
-        txtCpf = new javax.swing.JTextField();
-        lblTelefone = new javax.swing.JLabel();
-        txtTelefone = new javax.swing.JTextField();
+        lblTelefone1 = new javax.swing.JLabel();
+        txtEndereco = new javax.swing.JTextField();
+
+        lblEndereco.setText("Endereço");
 
         jButton1.setText("Recuperar todos");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -56,9 +62,15 @@ public class TelaClientes extends javax.swing.JInternalFrame {
 
         lblNome.setText("Nome");
 
-        lblCpf.setText("CPF");
+        lblCpf.setText("CNPJ");
 
-        lblTelefone.setText("Telefone");
+        lblTelefone1.setText("Telefone");
+
+        txtEndereco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEnderecoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -68,21 +80,27 @@ public class TelaClientes extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 324, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSalvar))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lblNome)
                             .addComponent(txtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
                             .addComponent(lblCpf)
-                            .addComponent(txtCpf)
-                            .addComponent(lblTelefone)
-                            .addComponent(txtTelefone))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 309, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSalvar)))
+                            .addComponent(txtCnpj)
+                            .addComponent(lblEndereco)
+                            .addComponent(txtTelefone)
+                            .addComponent(txtEndereco))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(16, 16, 16)
+                    .addComponent(lblTelefone1)
+                    .addContainerGap(584, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -93,12 +111,14 @@ public class TelaClientes extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblCpf)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblTelefone)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
                 .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 178, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(lblEndereco)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 129, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -108,49 +128,60 @@ public class TelaClientes extends javax.swing.JInternalFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(16, 16, 16))))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(122, 122, 122)
+                    .addComponent(lblTelefone1)
+                    .addContainerGap(247, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        controlaClientes.recuperarTodos();
+        controlaFornecedor.recuperarTodos();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        Cliente cl = new Cliente();
+        Fornecedor fl = new Fornecedor();
         String nome = txtNome.getText();
-        cl.setNome(nome);
-        cl.setCpf(txtCpf.getText());
-        cl.setTelefone(txtTelefone.getText());
-
+        fl.setNome(nome);
+        fl.setCnpj(txtCnpj.getText());
+        fl.setTelefone(txtTelefone.getText());
+        fl.setEndereco(txtEndereco.getText());
 
         String idString = txtId.getText();
         int id = Integer.parseInt(idString);
         String idConvertido = String.valueOf(id);
 
-        cl.setIdCliente(id);
+        fl.setIdFornecedor(id);
 
-        controlaClientes.salvar(cl);
+        controlaFornecedor.salvar(fl);
 
         JOptionPane.showMessageDialog(null, "Salvo com sucesso");
 
         txtNome.setText("");
-        txtCpf.setText("");
+        txtCnpj.setText("");
         txtTelefone.setText("");
         txtId.setText("");
 
         txtNome.requestFocus();
     }//GEN-LAST:event_btnSalvarActionPerformed
 
+    private void txtEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEnderecoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtEnderecoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalvar;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel lblCpf;
+    private javax.swing.JLabel lblEndereco;
     private javax.swing.JLabel lblNome;
-    private javax.swing.JLabel lblTelefone;
-    private javax.swing.JTextField txtCpf;
+    private javax.swing.JLabel lblTelefone1;
+    private javax.swing.JTextField txtCnpj;
+    private javax.swing.JTextField txtEndereco;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtTelefone;
