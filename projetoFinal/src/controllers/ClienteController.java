@@ -4,10 +4,36 @@
  */
 package controllers;
 
+import java.util.ArrayList;
+import models.Cliente;
+
 /**
  *
  * @author fernando.agostini
  */
 public class ClienteController {
+
+    ArrayList<Cliente> vetorClientes = new ArrayList();
+
+    public void salvar(Cliente c) {
+        vetorClientes.add(c);
+    }
+
+    //    editar(){
+//        
+//    }
+//    
+//    excluir(){
+//        
+//    }
+//    
+//    recuperar(){
+//        
+//    }
     
-}
+     public void recuperarTodos(){
+        for (int i = 0; i < vetorClientes.size(); i++) {
+            Cliente c = vetorClientes.get(i);
+            c.imprimeAtributos();
+        }
+}}

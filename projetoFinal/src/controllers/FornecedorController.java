@@ -4,10 +4,37 @@
  */
 package controllers;
 
+import java.util.ArrayList;
+import models.Fornecedor;
+
 /**
  *
  * @author fernando.agostini
  */
 public class FornecedorController {
     
-}
+    ArrayList<Fornecedor> vetorFornecedor = new ArrayList();
+
+    public void salvar(Fornecedor f) {
+        vetorFornecedor.add(f);
+    }
+
+    //    editar(){
+//        
+//    }
+//    
+//    excluir(){
+//        
+//    }
+//    
+//    recuperar(){
+//        
+//    }
+    
+     public void recuperarTodos(){
+        for (int i = 0; i < vetorFornecedor.size(); i++) {
+            Fornecedor f = vetorFornecedor.get(i);
+            f.imprimeAtributos();
+        }
+    
+}}

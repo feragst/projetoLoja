@@ -54,6 +54,9 @@ public class Fornecedor {
     public void setEndereco(String endereco) {
         this.endereco = endereco;
     }
+    public Fornecedor() {
+    }
+    
 
     public Fornecedor(int idFornecedor, String nome, String cnpj, String telefone, String endereco) {
         this.idFornecedor = idFornecedor;
@@ -61,6 +64,15 @@ public class Fornecedor {
         this.cnpj = cnpj;
         this.telefone = telefone;
         this.endereco = endereco;
+    }
+    
+    public void imprimeAtributos(){
+        System.out.println(idFornecedor);
+        System.out.println(nome);
+        System.out.println(cnpj);
+        System.out.println(telefone);
+        System.out.println(endereco);
+   
     }
     
     
