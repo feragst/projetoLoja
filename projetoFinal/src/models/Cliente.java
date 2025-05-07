@@ -61,6 +61,10 @@ public class Cliente {
         System.out.println(telefone);
    
     }
+    @Override
+    public String toString(){
+        return idCliente + ";" + nome + ";" + cpf + ";" + telefone;
+    }
     
     
     

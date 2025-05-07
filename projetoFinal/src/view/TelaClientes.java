@@ -4,8 +4,10 @@
  */
 package view;
 import controllers.ClienteController;
+import java.util.ArrayList;
 import models.Cliente;
 import javax.swing.JOptionPane;
+import javax.swing.table.AbstractTableModel;
 /**
  *
  * @author fernando.agostini
@@ -18,7 +20,68 @@ public class TelaClientes extends javax.swing.JInternalFrame {
      */
     public TelaClientes() {
         initComponents();
+        montaTabela();
     }
+     private void montaTabela() {
+        ArrayList<Cliente> clientes = controlaClientes.recuperarTodos();
+        if (clientes == null) {
+            JOptionPane.showMessageDialog(null, "Erro ao consultar clientes");
+        } else {
+            tblClientes.setModel(new AbstractTableModel() {
+                @Override
+                public String getColumnName(int column) {
+                    switch (column) {
+                        case 0:
+                            return "ID";
+                        case 1:
+                            return "Nome";
+                        case 2:
+                            return "CPF";
+                        case 3:
+                            return "Telefone";
+                        default:
+                            return "";
+                    }
+                }
+
+                @Override
+                public int getColumnCount() {
+                    return 5;
+                }
+
+                @Override
+                public int getRowCount() {
+                    return clientes.size();
+                }
+
+                @Override
+                public Object getValueAt(int rowIndex, int columnIndex) {
+                    Cliente c = clientes.get(rowIndex);
+
+                    if (c != null) {
+                        switch (columnIndex) {
+                            case 0:
+                                return c.getIdCliente();
+                            case 1:
+                                return c.getNome();
+                            case 2:
+                                return c.getCpf();
+                            case 3:
+                                return c.getTelefone();
+                           
+                        }
+
+                    }
+
+                    return "n/d";
+                }
+            });
+
+            tblClientes.getColumnModel().getColumn(0).setMinWidth(80);
+            tblClientes.getColumnModel().getColumn(0).setPreferredWidth(80);
+            tblClientes.getColumnModel().getColumn(0).setMaxWidth(20);
+        }
+     }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -29,22 +92,25 @@ public class TelaClientes extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtId = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        btnSalvar = new javax.swing.JButton();
-        lblNome = new javax.swing.JLabel();
-        txtNome = new javax.swing.JTextField();
-        lblCpf = new javax.swing.JLabel();
-        txtCpf = new javax.swing.JTextField();
-        lblTelefone = new javax.swing.JLabel();
+        containerAbas = new javax.swing.JTabbedPane();
+        abaUm = new javax.swing.JPanel();
         txtTelefone = new javax.swing.JTextField();
+        lblTelefone = new javax.swing.JLabel();
+        txtCpf = new javax.swing.JTextField();
+        lblCpf = new javax.swing.JLabel();
+        txtNome = new javax.swing.JTextField();
+        lblNome = new javax.swing.JLabel();
+        btnSalvar = new javax.swing.JButton();
+        abaDois = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblClientes = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
 
-        jButton1.setText("Recuperar todos");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        lblTelefone.setText("Telefone");
+
+        lblCpf.setText("CPF");
+
+        lblNome.setText("Nome");
 
         btnSalvar.setBackground(new java.awt.Color(255, 255, 102));
         btnSalvar.setText("Salvar");
@@ -54,39 +120,30 @@ public class TelaClientes extends javax.swing.JInternalFrame {
             }
         });
 
-        lblNome.setText("Nome");
-
-        lblCpf.setText("CPF");
-
-        lblTelefone.setText("Telefone");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+        javax.swing.GroupLayout abaUmLayout = new javax.swing.GroupLayout(abaUm);
+        abaUm.setLayout(abaUmLayout);
+        abaUmLayout.setHorizontalGroup(
+            abaUmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(abaUmLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(abaUmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(abaUmLayout.createSequentialGroup()
+                        .addGroup(abaUmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lblNome)
                             .addComponent(txtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
                             .addComponent(lblCpf)
                             .addComponent(txtCpf)
                             .addComponent(lblTelefone)
                             .addComponent(txtTelefone))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 309, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(0, 114, Short.MAX_VALUE))
+                    .addGroup(abaUmLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnSalvar)))
                 .addContainerGap())
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+        abaUmLayout.setVerticalGroup(
+            abaUmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(abaUmLayout.createSequentialGroup()
                 .addComponent(lblNome)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -98,24 +155,74 @@ public class TelaClientes extends javax.swing.JInternalFrame {
                 .addComponent(lblTelefone)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 178, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnSalvar)
-                            .addComponent(jButton1))
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(16, 16, 16))))
+                .addGap(0, 181, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, abaUmLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnSalvar)
+                .addContainerGap())
+        );
+
+        containerAbas.addTab("Cadastro", abaUm);
+
+        tblClientes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tblClientes);
+
+        jButton1.setText("Atualizar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout abaDoisLayout = new javax.swing.GroupLayout(abaDois);
+        abaDois.setLayout(abaDoisLayout);
+        abaDoisLayout.setHorizontalGroup(
+            abaDoisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, abaDoisLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(abaDoisLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        abaDoisLayout.setVerticalGroup(
+            abaDoisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(abaDoisLayout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1)
+                .addGap(0, 11, Short.MAX_VALUE))
+        );
+
+        containerAbas.addTab("Listagem", abaDois);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(containerAbas, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(256, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(containerAbas)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        controlaClientes.recuperarTodos();
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         Cliente cl = new Cliente();
@@ -123,35 +230,39 @@ public class TelaClientes extends javax.swing.JInternalFrame {
         cl.setNome(nome);
         cl.setCpf(txtCpf.getText());
         cl.setTelefone(txtTelefone.getText());
+    
 
+        boolean retorno = controlaClientes.salvar(cl);
+        if (retorno) {
+            JOptionPane.showMessageDialog(null, "Salvo com sucesso");
+            txtNome.setText("");
+            txtCpf.setText("");
+            txtTelefone.setText("");
+            
 
-        String idString = txtId.getText();
-        int id = Integer.parseInt(idString);
-        String idConvertido = String.valueOf(id);
-
-        cl.setIdCliente(id);
-
-        controlaClientes.salvar(cl);
-
-        JOptionPane.showMessageDialog(null, "Salvo com sucesso");
-
-        txtNome.setText("");
-        txtCpf.setText("");
-        txtTelefone.setText("");
-        txtId.setText("");
-
-        txtNome.requestFocus();
+            txtNome.requestFocus();
+        } else {
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro, verifique os logs.");
+        }
     }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        montaTabela();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel abaDois;
+    private javax.swing.JPanel abaUm;
     private javax.swing.JButton btnSalvar;
+    private javax.swing.JTabbedPane containerAbas;
     private javax.swing.JButton jButton1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCpf;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblTelefone;
+    private javax.swing.JTable tblClientes;
     private javax.swing.JTextField txtCpf;
-    private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtTelefone;
     // End of variables declaration//GEN-END:variables

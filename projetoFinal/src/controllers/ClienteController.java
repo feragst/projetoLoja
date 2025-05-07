@@ -4,8 +4,10 @@
  */
 package controllers;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import models.Cliente;
+import models.DAO.ClienteDAO;
 
 /**
  *
@@ -13,10 +15,16 @@ import models.Cliente;
  */
 public class ClienteController {
 
-    ArrayList<Cliente> vetorClientes = new ArrayList();
+    ClienteDAO clienteDAO = new ClienteDAO();
 
-    public void salvar(Cliente c) {
-        vetorClientes.add(c);
+    public boolean salvar(Cliente c) {
+        try {
+            clienteDAO.salvar(c);
+            return true;
+        } catch (SQLException ex) {
+            System.out.println("Erro ao salvar cliente: " + ex.getMessage());
+            return false;
+        }
     }
 
     //    editar(){
@@ -31,9 +39,13 @@ public class ClienteController {
 //        
 //    }
     
-     public void recuperarTodos(){
-        for (int i = 0; i < vetorClientes.size(); i++) {
-            Cliente c = vetorClientes.get(i);
-            c.imprimeAtributos();
+      public ArrayList<Cliente> recuperarTodos(){
+        ArrayList<Cliente> vetorClientes = null;
+        try {
+            vetorClientes = clienteDAO.recuperarTodos();
+        } catch (SQLException ex) {
+            System.out.println("Erro ao consultar clientes: " + ex.getMessage());
         }
-}}
+        return vetorClientes;
+    }
+}

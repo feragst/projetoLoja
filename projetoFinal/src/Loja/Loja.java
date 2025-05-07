@@ -4,6 +4,8 @@
  */
 package Loja;
 
+import apoio.ConexaoBD;
+import javax.swing.JOptionPane;
 import view.TelaPrincipal;
 
 /**
@@ -12,7 +14,16 @@ import view.TelaPrincipal;
  */
 public class Loja {
     public static void main(String[] args) {
-        TelaPrincipal tp = new TelaPrincipal();
-        tp.setVisible(true);
+        try {
+            ConexaoBD.getInstance().getConnection();
+            TelaPrincipal tp = new TelaPrincipal();
+            tp.setVisible(true);
+        } catch (Exception e) {
+            System.out.println(e);
+            JOptionPane.showMessageDialog(null, "Erro de conexão com o banco de dados!\nPor favor entre em contato com o suporte.");
+        } finally {
+            ConexaoBD.getInstance().shutdown();
+        }
+
     }
 }
