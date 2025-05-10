@@ -19,10 +19,12 @@ import java.util.ArrayList;
  */
 public class TelaFornecedor extends javax.swing.JInternalFrame {
 
-    FornecedorController controlaFornecedor = new FornecedorController();
+    int codigo = 0;
+
+    FornecedorController controlaFornecedores = new FornecedorController();
 
     /**
-     * Creates new form TelaClientes
+     * Creates new form TelaFornecedors
      */
     public TelaFornecedor() {
         initComponents();
@@ -30,11 +32,11 @@ public class TelaFornecedor extends javax.swing.JInternalFrame {
     }
 
     private void montaTabela() {
-        ArrayList<Fornecedor> fornecedores = controlaFornecedor.recuperarTodos();
+        ArrayList<Fornecedor> fornecedores = controlaFornecedores.recuperarTodos();
         if (fornecedores == null) {
-            JOptionPane.showMessageDialog(null, "Erro ao consultar clientes");
+            JOptionPane.showMessageDialog(null, "Erro ao consultar fornecedores");
         } else {
-            tblClientes.setModel(new AbstractTableModel() {
+            tblFornecedores.setModel(new AbstractTableModel() {
                 @Override
                 public String getColumnName(int column) {
                     switch (column) {
@@ -43,7 +45,7 @@ public class TelaFornecedor extends javax.swing.JInternalFrame {
                         case 1:
                             return "Nome";
                         case 2:
-                            return "CPF";
+                            return "Cnpj";
                         case 3:
                             return "Telefone";
                         case 4:
@@ -88,9 +90,9 @@ public class TelaFornecedor extends javax.swing.JInternalFrame {
                 }
             });
 
-            tblClientes.getColumnModel().getColumn(0).setMinWidth(80);
-            tblClientes.getColumnModel().getColumn(0).setPreferredWidth(80);
-            tblClientes.getColumnModel().getColumn(0).setMaxWidth(20);
+            tblFornecedores.getColumnModel().getColumn(0).setMinWidth(80);
+            tblFornecedores.getColumnModel().getColumn(0).setPreferredWidth(80);
+            tblFornecedores.getColumnModel().getColumn(0).setMaxWidth(20);
         }
     }
 
@@ -116,8 +118,10 @@ public class TelaFornecedor extends javax.swing.JInternalFrame {
         txtEndereco = new javax.swing.JTextField();
         abaDois = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblClientes = new javax.swing.JTable();
+        tblFornecedores = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
 
         lblTelefone.setText("Telefone");
 
@@ -189,7 +193,7 @@ public class TelaFornecedor extends javax.swing.JInternalFrame {
 
         containerAbas.addTab("Cadastro", abaUm);
 
-        tblClientes.setModel(new javax.swing.table.DefaultTableModel(
+        tblFornecedores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -200,7 +204,7 @@ public class TelaFornecedor extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tblClientes);
+        jScrollPane1.setViewportView(tblFornecedores);
 
         jButton1.setText("Atualizar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -209,25 +213,47 @@ public class TelaFornecedor extends javax.swing.JInternalFrame {
             }
         });
 
+        btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
+
+        btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout abaDoisLayout = new javax.swing.GroupLayout(abaDois);
         abaDois.setLayout(abaDoisLayout);
         abaDoisLayout.setHorizontalGroup(
             abaDoisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, abaDoisLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
             .addGroup(abaDoisLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(abaDoisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, abaDoisLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(abaDoisLayout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnExcluir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnEditar)))
+                .addContainerGap())
         );
         abaDoisLayout.setVerticalGroup(
             abaDoisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(abaDoisLayout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
+                .addGroup(abaDoisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(btnExcluir)
+                    .addComponent(btnEditar))
                 .addGap(0, 24, Short.MAX_VALUE))
         );
 
@@ -257,18 +283,39 @@ public class TelaFornecedor extends javax.swing.JInternalFrame {
         fr.setTelefone(txtTelefone.getText());
         fr.setEndereco(txtEndereco.getText());
 
-        boolean retorno = controlaFornecedor.salvar(fr);
-        if (retorno) {
-            JOptionPane.showMessageDialog(null, "Salvo com sucesso");
-            txtNome.setText("");
-            txtCnpj.setText("");
-            txtTelefone.setText("");
-            txtEndereco.setText("");
+        
+        if (codigo == 0) {
+            boolean retorno = controlaFornecedores.salvar(fr);
+            if (retorno) {
+                JOptionPane.showMessageDialog(null, "Salvo com sucesso");
+                txtNome.setText("");
+                txtCnpj.setText("");
+                txtTelefone.setText("");
+                txtEndereco.setText("");
 
-            txtNome.requestFocus();
+                txtNome.requestFocus();
+            } else {
+                JOptionPane.showMessageDialog(null, "Ocorreu um erro, verifique os logs.");
+            }
         } else {
-            JOptionPane.showMessageDialog(null, "Ocorreu um erro, verifique os logs.");
+
+            fr.setIdFornecedor(codigo);
+            boolean retorno = controlaFornecedores.editar(fr);
+            if (retorno) {
+                JOptionPane.showMessageDialog(null, "Editado com sucesso");
+                txtNome.setText("");
+                txtCnpj.setText("");
+                txtTelefone.setText("");
+                txtEndereco.setText("");
+
+                montaTabela();
+                containerAbas.setSelectedIndex(1);
+                codigo = 0;
+            } else {
+                JOptionPane.showMessageDialog(null, "Ocorreu um erro, verifique os logs.");
+            }
         }
+
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -279,10 +326,52 @@ public class TelaFornecedor extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtEnderecoActionPerformed
 
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        String idString = String.valueOf(tblFornecedores.getValueAt(tblFornecedores.getSelectedRow(), 0));
+        int id = Integer.parseInt(idString);
+
+        Fornecedor f = controlaFornecedores.recuperar(id);
+
+        if (f == null) {
+            JOptionPane.showMessageDialog(null, "Registro não localizado!");
+        } else {
+
+            // preenche a variavel codigo que sera usada para salvar ou editar
+            codigo = f.getIdFornecedor();
+
+            // mudar a aba ativa para Cadastro
+            containerAbas.setSelectedIndex(0);
+
+            // coloca dados nos campos de interface
+            txtNome.setText(f.getNome());
+            txtCnpj.setText(f.getCnpj());
+            txtTelefone.setText(f.getTelefone());
+            txtEndereco.setText(f.getEndereco());
+
+            txtNome.requestFocus();
+        }
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        // TODO add your handling code here:
+        String idString = String.valueOf(tblFornecedores.getValueAt(tblFornecedores.getSelectedRow(), 0));
+        int id = Integer.parseInt(idString);
+
+        boolean retorno = controlaFornecedores.excluir(id);
+        if (retorno) {
+            JOptionPane.showMessageDialog(null, "Registro excluído com sucesso!");
+            montaTabela();
+        } else {
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao excluir!");
+        }
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel abaDois;
     private javax.swing.JPanel abaUm;
+    private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JTabbedPane containerAbas;
     private javax.swing.JButton jButton1;
@@ -291,7 +380,7 @@ public class TelaFornecedor extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblTelefone;
     private javax.swing.JLabel lblTelefone2;
-    private javax.swing.JTable tblClientes;
+    private javax.swing.JTable tblFornecedores;
     private javax.swing.JTextField txtCnpj;
     private javax.swing.JTextField txtEndereco;
     private javax.swing.JTextField txtNome;

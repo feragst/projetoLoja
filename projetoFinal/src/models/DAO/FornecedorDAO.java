@@ -58,4 +58,46 @@ public class FornecedorDAO {
 
         return fornecedores;
     }
+     public Fornecedor recuperar(int id) throws SQLException {
+        Fornecedor fornecedor = null;
+        String sql = ""
+                + "SELECT * FROM fornecedor WHERE idfornecedor = " + id;
+
+        resultadoQ = ConexaoBD.executeQuery(sql);
+
+        if (resultadoQ.next()) {
+            fornecedor = new Fornecedor();
+
+            fornecedor.setIdFornecedor(resultadoQ.getInt("idFornecedor"));
+            fornecedor.setNome(resultadoQ.getString("nome"));
+            fornecedor.setCnpj(resultadoQ.getString("cnpj"));
+            fornecedor.setTelefone(resultadoQ.getString("telefone"));
+            fornecedor.setEndereco(resultadoQ.getString("endereco"));
+        }
+
+        return fornecedor;
+    }
+    
+     public void editar(Fornecedor f) throws SQLException {
+        String sql = ""
+                + "UPDATE fornecedor "
+                + "SET "
+                + "nome = '" + f.getNome()+ "',"
+                + "cnpj = '" + f.getCnpj() + "', "
+                + "telefone = '" + f.getTelefone() + "' ,"
+                + "endereco = '" + f.getEndereco() + "' "
+                + "WHERE idfornecedor = " + f.getIdFornecedor();
+
+        System.out.println("sql: " + sql);
+
+        ConexaoBD.executeUpdate(sql);
+    }
+     public void excluir(int id) throws SQLException {
+        String sql = ""
+                + "DELETE FROM fornecedor WHERE idfornecedor = " + id;
+
+        System.out.println("sql: " + sql);
+
+        ConexaoBD.executeUpdate(sql);
+    }
 }

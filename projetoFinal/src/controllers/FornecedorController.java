@@ -27,11 +27,39 @@ public class FornecedorController {
         }
     }
 
-    //    editar(){
+    //    editar()
+     public boolean editar(Fornecedor f){
+        try {
+            fornecedorDAO.editar(f);
+            return true;
+        } catch (SQLException ex) {
+            System.out.println("Erro ao editar fornecedor: " + ex.getMessage());
+            return false;
+        }
+    }
 //        
 //    }
 //    
-//    excluir(){
+//    excluir()
+     public boolean excluir(int id){
+        try {
+            fornecedorDAO.excluir(id);
+            return true;
+        } catch (SQLException ex) {
+            System.out.println("Erro ao excluir fornecedor: " + ex.getMessage());
+            return false;
+        }
+    }
+     
+        public Fornecedor recuperar(int id){
+        try {
+            Fornecedor fornecedor = fornecedorDAO.recuperar(id);
+            return fornecedor;
+        } catch (SQLException ex) {
+            System.out.println("Erro ao consultar fornecedor: " + ex.getMessage());
+            return null;
+        }
+    }
 //        
 //    }
 //    
