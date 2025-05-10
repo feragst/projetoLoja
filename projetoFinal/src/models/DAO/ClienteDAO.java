@@ -52,7 +52,48 @@ public class ClienteDAO {
 
             clientes.add(cliente);
         }
+        
 
         return clientes;
+    }
+       public Cliente recuperar(int id) throws SQLException {
+        Cliente cliente = null;
+        String sql = ""
+                + "SELECT * FROM cliente WHERE idcliente = " + id;
+
+        resultadoQ = ConexaoBD.executeQuery(sql);
+
+        if (resultadoQ.next()) {
+            cliente = new Cliente();
+
+            cliente.setIdCliente(resultadoQ.getInt("idCliente"));
+            cliente.setNome(resultadoQ.getString("nome"));
+            cliente.setCpf(resultadoQ.getString("cpf"));
+            cliente.setTelefone(resultadoQ.getString("telefone"));
+        }
+
+        return cliente;
+    }
+    
+    public void editar(Cliente c) throws SQLException {
+        String sql = ""
+                + "UPDATE cliente "
+                + "SET "
+                + "nome = '" + c.getNome() + "',"
+                + "cpf = '" + c.getCpf() + "', "
+                + "telefone = '" + c.getTelefone() + "' "
+                + "WHERE idcliente = " + c.getIdCliente();
+
+        System.out.println("sql: " + sql);
+
+        ConexaoBD.executeUpdate(sql);
+    }
+    public void excluir(int id) throws SQLException {
+        String sql = ""
+                + "DELETE FROM cliente WHERE idcliente = " + id;
+
+        System.out.println("sql: " + sql);
+
+        ConexaoBD.executeUpdate(sql);
     }
 }

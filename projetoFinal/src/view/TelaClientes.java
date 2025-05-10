@@ -3,26 +3,32 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
 package view;
+
 import controllers.ClienteController;
 import java.util.ArrayList;
 import models.Cliente;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
+
 /**
  *
  * @author fernando.agostini
  */
 public class TelaClientes extends javax.swing.JInternalFrame {
+
     ClienteController controlaClientes = new ClienteController();
 
     /**
      * Creates new form TelaClientes
      */
+    int codigo = 0;
+
     public TelaClientes() {
         initComponents();
         montaTabela();
     }
-     private void montaTabela() {
+
+    private void montaTabela() {
         ArrayList<Cliente> clientes = controlaClientes.recuperarTodos();
         if (clientes == null) {
             JOptionPane.showMessageDialog(null, "Erro ao consultar clientes");
@@ -68,7 +74,7 @@ public class TelaClientes extends javax.swing.JInternalFrame {
                                 return c.getCpf();
                             case 3:
                                 return c.getTelefone();
-                           
+
                         }
 
                     }
@@ -81,7 +87,7 @@ public class TelaClientes extends javax.swing.JInternalFrame {
             tblClientes.getColumnModel().getColumn(0).setPreferredWidth(80);
             tblClientes.getColumnModel().getColumn(0).setMaxWidth(20);
         }
-     }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -105,6 +111,8 @@ public class TelaClientes extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblClientes = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
 
         lblTelefone.setText("Telefone");
 
@@ -184,25 +192,47 @@ public class TelaClientes extends javax.swing.JInternalFrame {
             }
         });
 
+        btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
+
+        btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout abaDoisLayout = new javax.swing.GroupLayout(abaDois);
         abaDois.setLayout(abaDoisLayout);
         abaDoisLayout.setHorizontalGroup(
             abaDoisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, abaDoisLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
             .addGroup(abaDoisLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(abaDoisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, abaDoisLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(abaDoisLayout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnExcluir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnEditar)))
+                .addContainerGap())
         );
         abaDoisLayout.setVerticalGroup(
             abaDoisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(abaDoisLayout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
+                .addGroup(abaDoisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(btnEditar)
+                    .addComponent(btnExcluir))
                 .addGap(0, 11, Short.MAX_VALUE))
         );
 
@@ -230,30 +260,87 @@ public class TelaClientes extends javax.swing.JInternalFrame {
         cl.setNome(nome);
         cl.setCpf(txtCpf.getText());
         cl.setTelefone(txtTelefone.getText());
-    
 
-        boolean retorno = controlaClientes.salvar(cl);
-        if (retorno) {
-            JOptionPane.showMessageDialog(null, "Salvo com sucesso");
-            txtNome.setText("");
-            txtCpf.setText("");
-            txtTelefone.setText("");
-            
+        if (codigo == 0) {
+            boolean retorno = controlaClientes.salvar(cl);
+            if (retorno) {
+                JOptionPane.showMessageDialog(null, "Salvo com sucesso");
+                txtNome.setText("");
+                txtCpf.setText("");
+                txtTelefone.setText("");
 
-            txtNome.requestFocus();
+                txtNome.requestFocus();
+            } else {
+                JOptionPane.showMessageDialog(null, "Ocorreu um erro, verifique os logs.");
+            }
         } else {
-            JOptionPane.showMessageDialog(null, "Ocorreu um erro, verifique os logs.");
-        }
+
+            cl.setIdCliente(codigo);
+            boolean retorno = controlaClientes.editar(cl);
+            if (retorno) {
+                JOptionPane.showMessageDialog(null, "Editado com sucesso");
+                txtNome.setText("");
+                txtCpf.setText("");
+                txtTelefone.setText("");
+
+                montaTabela();
+                containerAbas.setSelectedIndex(1);
+                codigo = 0;
+            } else {
+                JOptionPane.showMessageDialog(null, "Ocorreu um erro, verifique os logs.");
+            }}
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+  
         montaTabela();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        String idString = String.valueOf(tblClientes.getValueAt(tblClientes.getSelectedRow(), 0));
+        int id = Integer.parseInt(idString);
+
+        Cliente c = controlaClientes.recuperar(id);
+
+        if (c == null) {
+            JOptionPane.showMessageDialog(null, "Registro não localizado!");
+        } else {
+
+            // preenche a variavel codigo que sera usada para salvar ou editar
+            codigo = c.getIdCliente();
+
+            // mudar a aba ativa para Cadastro
+            containerAbas.setSelectedIndex(0);
+
+            // coloca dados nos campos de interface
+            txtNome.setText(c.getNome());
+            txtCpf.setText(c.getCpf());
+            txtTelefone.setText(c.getTelefone());
+
+
+            txtNome.requestFocus();
+        }
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        String idString = String.valueOf(tblClientes.getValueAt(tblClientes.getSelectedRow(), 0));
+        int id = Integer.parseInt(idString);
+
+        boolean retorno = controlaClientes.excluir(id);
+        if (retorno) {
+            JOptionPane.showMessageDialog(null, "Registro excluído com sucesso!");
+            montaTabela();
+        } else {
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao excluir!");
+        }
+    }//GEN-LAST:event_btnExcluirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel abaDois;
     private javax.swing.JPanel abaUm;
+    private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JTabbedPane containerAbas;
     private javax.swing.JButton jButton1;

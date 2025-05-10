@@ -27,15 +27,42 @@ public class ClienteController {
         }
     }
 
-    //    editar(){
+    //    editar()
+    public boolean editar(Cliente c){
+        try {
+            clienteDAO.editar(c);
+            return true;
+        } catch (SQLException ex) {
+            System.out.println("Erro ao editar cliente: " + ex.getMessage());
+            return false;
+        }
+    }
 //        
 //    }
 //    
-//    excluir(){
+//    excluir()
+        public boolean excluir(int id){
+        try {
+            clienteDAO.excluir(id);
+            return true;
+        } catch (SQLException ex) {
+            System.out.println("Erro ao excluir cliente: " + ex.getMessage());
+            return false;
+        }
+    }
 //        
 //    }
 //    
-//    recuperar(){
+//    recuperar()
+    public Cliente recuperar(int id){
+        try {
+            Cliente cliente = clienteDAO.recuperar(id);
+            return cliente;
+        } catch (SQLException ex) {
+            System.out.println("Erro ao consultar cliente: " + ex.getMessage());
+            return null;
+        }
+    }
 //        
 //    }
     
