@@ -4,7 +4,9 @@
  */
 package controllers;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+import models.DAO.FornecedorDAO;
 import models.Fornecedor;
 
 /**
@@ -13,10 +15,16 @@ import models.Fornecedor;
  */
 public class FornecedorController {
     
-    ArrayList<Fornecedor> vetorFornecedor = new ArrayList();
+  FornecedorDAO fornecedorDAO = new FornecedorDAO();
 
-    public void salvar(Fornecedor f) {
-        vetorFornecedor.add(f);
+    public boolean salvar(Fornecedor f) {
+        try {
+            fornecedorDAO.salvar(f);
+            return true;
+        } catch (SQLException ex) {
+            System.out.println("Erro ao salvar fornecedor: " + ex.getMessage());
+            return false;
+        }
     }
 
     //    editar(){
@@ -31,10 +39,14 @@ public class FornecedorController {
 //        
 //    }
     
-     public void recuperarTodos(){
-        for (int i = 0; i < vetorFornecedor.size(); i++) {
-            Fornecedor f = vetorFornecedor.get(i);
-            f.imprimeAtributos();
+     public ArrayList<Fornecedor> recuperarTodos(){
+        ArrayList<Fornecedor> vetorFornecedores = null;
+        try {
+            vetorFornecedores = fornecedorDAO.recuperarTodos();
+        } catch (SQLException ex) {
+            System.out.println("Erro ao consultar fornecedores: " + ex.getMessage());
         }
+        return vetorFornecedores;
+    }
     
-}}
+}

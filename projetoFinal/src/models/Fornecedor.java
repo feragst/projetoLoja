@@ -74,6 +74,10 @@ public class Fornecedor {
         System.out.println(endereco);
    
     }
+    @Override
+    public String toString(){
+        return idFornecedor + ";" + nome + ";" + cnpj + ";" + telefone + ";" + endereco;
+    }
     
     
 }

@@ -5,21 +5,93 @@
 package view;
 
 import controllers.FornecedorController;
-import javax.swing.JOptionPane;
 import models.Fornecedor;
+import javax.swing.JOptionPane;
+import javax.swing.table.AbstractTableModel;
+import java.util.ArrayList;
 
 /**
  *
  * @author ferag
  */
+/**
+ * Creates new form TelaFornecedor
+ */
 public class TelaFornecedor extends javax.swing.JInternalFrame {
+
     FornecedorController controlaFornecedor = new FornecedorController();
 
     /**
-     * Creates new form TelaFornecedor
+     * Creates new form TelaClientes
      */
     public TelaFornecedor() {
         initComponents();
+        montaTabela();
+    }
+
+    private void montaTabela() {
+        ArrayList<Fornecedor> fornecedores = controlaFornecedor.recuperarTodos();
+        if (fornecedores == null) {
+            JOptionPane.showMessageDialog(null, "Erro ao consultar clientes");
+        } else {
+            tblClientes.setModel(new AbstractTableModel() {
+                @Override
+                public String getColumnName(int column) {
+                    switch (column) {
+                        case 0:
+                            return "ID";
+                        case 1:
+                            return "Nome";
+                        case 2:
+                            return "CPF";
+                        case 3:
+                            return "Telefone";
+                        case 4:
+                            return "Endereço";
+                        default:
+                            return "";
+                    }
+                }
+
+                @Override
+                public int getColumnCount() {
+                    return 5;
+                }
+
+                @Override
+                public int getRowCount() {
+                    return fornecedores.size();
+                }
+
+                @Override
+                public Object getValueAt(int rowIndex, int columnIndex) {
+                    Fornecedor f = fornecedores.get(rowIndex);
+
+                    if (f != null) {
+                        switch (columnIndex) {
+                            case 0:
+                                return f.getIdFornecedor();
+                            case 1:
+                                return f.getNome();
+                            case 2:
+                                return f.getCnpj();
+                            case 3:
+                                return f.getTelefone();
+                            case 4:
+                                return f.getEndereco();
+
+                        }
+
+                    }
+
+                    return "n/d";
+                }
+            });
+
+            tblClientes.getColumnModel().getColumn(0).setMinWidth(80);
+            tblClientes.getColumnModel().getColumn(0).setPreferredWidth(80);
+            tblClientes.getColumnModel().getColumn(0).setMaxWidth(20);
+        }
     }
 
     /**
@@ -31,26 +103,27 @@ public class TelaFornecedor extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtCnpj = new javax.swing.JTextField();
-        lblEndereco = new javax.swing.JLabel();
+        containerAbas = new javax.swing.JTabbedPane();
+        abaUm = new javax.swing.JPanel();
         txtTelefone = new javax.swing.JTextField();
-        txtId = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        btnSalvar = new javax.swing.JButton();
-        lblNome = new javax.swing.JLabel();
-        txtNome = new javax.swing.JTextField();
+        lblTelefone = new javax.swing.JLabel();
+        txtCnpj = new javax.swing.JTextField();
         lblCpf = new javax.swing.JLabel();
-        lblTelefone1 = new javax.swing.JLabel();
+        txtNome = new javax.swing.JTextField();
+        lblNome = new javax.swing.JLabel();
+        btnSalvar = new javax.swing.JButton();
+        lblTelefone2 = new javax.swing.JLabel();
         txtEndereco = new javax.swing.JTextField();
+        abaDois = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblClientes = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
 
-        lblEndereco.setText("Endereço");
+        lblTelefone.setText("Telefone");
 
-        jButton1.setText("Recuperar todos");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        lblCpf.setText("cnpj");
+
+        lblNome.setText("Nome");
 
         btnSalvar.setBackground(new java.awt.Color(255, 255, 102));
         btnSalvar.setText("Salvar");
@@ -60,11 +133,7 @@ public class TelaFornecedor extends javax.swing.JInternalFrame {
             }
         });
 
-        lblNome.setText("Nome");
-
-        lblCpf.setText("CNPJ");
-
-        lblTelefone1.setText("Telefone");
+        lblTelefone2.setText("Endereço");
 
         txtEndereco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -72,39 +141,33 @@ public class TelaFornecedor extends javax.swing.JInternalFrame {
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+        javax.swing.GroupLayout abaUmLayout = new javax.swing.GroupLayout(abaUm);
+        abaUm.setLayout(abaUmLayout);
+        abaUmLayout.setHorizontalGroup(
+            abaUmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(abaUmLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 324, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(abaUmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(abaUmLayout.createSequentialGroup()
+                        .addGap(0, 290, Short.MAX_VALUE)
                         .addComponent(btnSalvar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblNome)
-                            .addComponent(txtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
-                            .addComponent(lblCpf)
-                            .addComponent(txtCnpj)
-                            .addComponent(lblEndereco)
-                            .addComponent(txtTelefone)
-                            .addComponent(txtEndereco))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGroup(abaUmLayout.createSequentialGroup()
+                        .addGroup(abaUmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(abaUmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(lblNome)
+                                .addComponent(txtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
+                                .addComponent(lblCpf)
+                                .addComponent(txtCnpj)
+                                .addComponent(lblTelefone)
+                                .addComponent(txtTelefone))
+                            .addComponent(lblTelefone2))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(txtEndereco))
                 .addContainerGap())
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(16, 16, 16)
-                    .addComponent(lblTelefone1)
-                    .addContainerGap(584, Short.MAX_VALUE)))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+        abaUmLayout.setVerticalGroup(
+            abaUmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(abaUmLayout.createSequentialGroup()
                 .addComponent(lblNome)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -112,61 +175,105 @@ public class TelaFornecedor extends javax.swing.JInternalFrame {
                 .addComponent(lblCpf)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(lblEndereco)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblTelefone)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(lblTelefone2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 129, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnSalvar)
-                            .addComponent(jButton1))
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(16, 16, 16))))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(122, 122, 122)
-                    .addComponent(lblTelefone1)
-                    .addContainerGap(247, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
+                .addComponent(btnSalvar))
+        );
+
+        containerAbas.addTab("Cadastro", abaUm);
+
+        tblClientes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tblClientes);
+
+        jButton1.setText("Atualizar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout abaDoisLayout = new javax.swing.GroupLayout(abaDois);
+        abaDois.setLayout(abaDoisLayout);
+        abaDoisLayout.setHorizontalGroup(
+            abaDoisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, abaDoisLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(abaDoisLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        abaDoisLayout.setVerticalGroup(
+            abaDoisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(abaDoisLayout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1)
+                .addGap(0, 24, Short.MAX_VALUE))
+        );
+
+        containerAbas.addTab("Listagem", abaDois);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(containerAbas, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(272, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(containerAbas)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        controlaFornecedor.recuperarTodos();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        Fornecedor fl = new Fornecedor();
+        Fornecedor fr = new Fornecedor();
         String nome = txtNome.getText();
-        fl.setNome(nome);
-        fl.setCnpj(txtCnpj.getText());
-        fl.setTelefone(txtTelefone.getText());
-        fl.setEndereco(txtEndereco.getText());
+        fr.setNome(nome);
+        fr.setCnpj(txtCnpj.getText());
+        fr.setTelefone(txtTelefone.getText());
+        fr.setEndereco(txtEndereco.getText());
 
-        String idString = txtId.getText();
-        int id = Integer.parseInt(idString);
-        String idConvertido = String.valueOf(id);
+        boolean retorno = controlaFornecedor.salvar(fr);
+        if (retorno) {
+            JOptionPane.showMessageDialog(null, "Salvo com sucesso");
+            txtNome.setText("");
+            txtCnpj.setText("");
+            txtTelefone.setText("");
+            txtEndereco.setText("");
 
-        fl.setIdFornecedor(id);
-
-        controlaFornecedor.salvar(fl);
-
-        JOptionPane.showMessageDialog(null, "Salvo com sucesso");
-
-        txtNome.setText("");
-        txtCnpj.setText("");
-        txtTelefone.setText("");
-        txtId.setText("");
-
-        txtNome.requestFocus();
+            txtNome.requestFocus();
+        } else {
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro, verifique os logs.");
+        }
     }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        montaTabela();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txtEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEnderecoActionPerformed
         // TODO add your handling code here:
@@ -174,15 +281,19 @@ public class TelaFornecedor extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel abaDois;
+    private javax.swing.JPanel abaUm;
     private javax.swing.JButton btnSalvar;
+    private javax.swing.JTabbedPane containerAbas;
     private javax.swing.JButton jButton1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCpf;
-    private javax.swing.JLabel lblEndereco;
     private javax.swing.JLabel lblNome;
-    private javax.swing.JLabel lblTelefone1;
+    private javax.swing.JLabel lblTelefone;
+    private javax.swing.JLabel lblTelefone2;
+    private javax.swing.JTable tblClientes;
     private javax.swing.JTextField txtCnpj;
     private javax.swing.JTextField txtEndereco;
-    private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
