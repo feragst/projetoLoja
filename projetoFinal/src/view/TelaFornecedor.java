@@ -123,6 +123,8 @@ public class TelaFornecedor extends javax.swing.JInternalFrame {
         btnExcluir = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
 
+        setClosable(true);
+
         lblTelefone.setText("Telefone");
 
         lblCpf.setText("cnpj");
@@ -153,7 +155,7 @@ public class TelaFornecedor extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(abaUmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(abaUmLayout.createSequentialGroup()
-                        .addGap(0, 290, Short.MAX_VALUE)
+                        .addGap(0, 808, Short.MAX_VALUE)
                         .addComponent(btnSalvar))
                     .addGroup(abaUmLayout.createSequentialGroup()
                         .addGroup(abaUmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -234,15 +236,15 @@ public class TelaFornecedor extends javax.swing.JInternalFrame {
             .addGroup(abaDoisLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(abaDoisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, abaDoisLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(abaDoisLayout.createSequentialGroup()
                         .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 648, Short.MAX_VALUE)
                         .addComponent(btnExcluir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnEditar)))
+                        .addComponent(btnEditar))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, abaDoisLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 865, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         abaDoisLayout.setVerticalGroup(
@@ -264,8 +266,8 @@ public class TelaFornecedor extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(containerAbas, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(272, Short.MAX_VALUE))
+                .addComponent(containerAbas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 21, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

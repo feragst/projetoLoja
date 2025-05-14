@@ -52,7 +52,7 @@ public class TelaClientes extends javax.swing.JInternalFrame {
 
                 @Override
                 public int getColumnCount() {
-                    return 5;
+                    return 4;
                 }
 
                 @Override
@@ -114,6 +114,8 @@ public class TelaClientes extends javax.swing.JInternalFrame {
         btnEditar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
 
+        setClosable(true);
+
         lblTelefone.setText("Telefone");
 
         lblCpf.setText("CPF");
@@ -143,7 +145,7 @@ public class TelaClientes extends javax.swing.JInternalFrame {
                             .addComponent(txtCpf)
                             .addComponent(lblTelefone)
                             .addComponent(txtTelefone))
-                        .addGap(0, 114, Short.MAX_VALUE))
+                        .addGap(0, 602, Short.MAX_VALUE))
                     .addGroup(abaUmLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnSalvar)))
@@ -213,15 +215,15 @@ public class TelaClientes extends javax.swing.JInternalFrame {
             .addGroup(abaDoisLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(abaDoisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, abaDoisLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(abaDoisLayout.createSequentialGroup()
                         .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 624, Short.MAX_VALUE)
                         .addComponent(btnExcluir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnEditar)))
+                        .addComponent(btnEditar))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, abaDoisLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 838, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         abaDoisLayout.setVerticalGroup(
@@ -243,8 +245,8 @@ public class TelaClientes extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(containerAbas, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(256, Short.MAX_VALUE))
+                .addComponent(containerAbas, javax.swing.GroupLayout.PREFERRED_SIZE, 862, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 46, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
