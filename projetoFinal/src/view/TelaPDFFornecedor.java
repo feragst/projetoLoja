@@ -6,6 +6,7 @@ package view;
 
 import apoio.PDFManager;
 import controllers.ClienteController;
+import controllers.FornecedorController;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.JFileChooser;
@@ -13,18 +14,17 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author mateus
+ * @author fernando.agostini
  */
-public class TelaPDFClientes extends javax.swing.JInternalFrame {
+public class TelaPDFFornecedor extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form TelaPDF
+     * Creates new form TelaPDFFornecedor
      */
-    public TelaPDFClientes() {
+    public TelaPDFFornecedor() {
         initComponents();
     }
-
-    ClienteController cc = new ClienteController();
+      FornecedorController ff = new FornecedorController();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -35,11 +35,9 @@ public class TelaPDFClientes extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtCaminho = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-
-        setClosable(true);
+        txtCaminho = new javax.swing.JTextField();
 
         jButton1.setText("Selecionar caminho");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -65,7 +63,7 @@ public class TelaPDFClientes extends javax.swing.JInternalFrame {
                     .addComponent(txtCaminho)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 145, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 166, Short.MAX_VALUE)
                         .addComponent(jButton2)))
                 .addContainerGap())
         );
@@ -78,7 +76,7 @@ public class TelaPDFClientes extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         pack();
@@ -93,7 +91,7 @@ public class TelaPDFClientes extends javax.swing.JInternalFrame {
         int resultado = chooser.showOpenDialog(this);
         if (resultado == JFileChooser.APPROVE_OPTION) {
             File dir = chooser.getSelectedFile();
-            txtCaminho.setText(dir.getAbsolutePath() + "/clientes.pdf");
+            txtCaminho.setText(dir.getAbsolutePath() + "/fornecedor.pdf");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -102,18 +100,18 @@ public class TelaPDFClientes extends javax.swing.JInternalFrame {
         if (caminho.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Selecione um caminho antes de gerar o PDF");
         } else {
-         try {
+            try {
                 String[] ordem = {
-                    "idCliente", "nome", "cpf", "telefone"
+                    "idFornecedor", "nome", "cnpj", "telefone", "endereco"
                 };
                 String[] rotulos = {
-                    "ID", "Nome", "CPF", "Telefone"
+                    "ID", "Nome", "CPF", "Telefone", "Endereco"
                 };
 
-                int[] larguras = {4, 16, 11, 14};
+                int[] larguras = {4, 16, 11, 14, 16};
 
-                PDFManager.gerar(cc.recuperarTodos(), caminho, ordem, larguras, rotulos);
-                JOptionPane.showMessageDialog(null, "PDF gerado com sucesso com o nome clientes.pdf");
+                PDFManager.gerar(ff.recuperarTodos(), caminho, ordem, larguras, rotulos);
+                JOptionPane.showMessageDialog(null, "PDF gerado com sucesso com o nome fornecedor.pdf");
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(null, "Ocorreu um erro ao gerar o PDF");
                 System.err.println("Ocorreu um erro ao gerar o PDF: " + ex);
